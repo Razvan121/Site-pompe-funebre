@@ -1,0 +1,656 @@
+/* Reset simplu */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html{
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Body cu font elegant și culoare text */
+body {
+  font-family: 'Merriweather', serif;
+  background-color: #f8f8f8;
+  color: #333;
+  line-height: 1.6;
+}
+.top-bar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 10000;
+  background-color: #fff;
+  color: #111;
+  padding: 8px 30px;
+  font-size: 0.95rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'Merriweather', serif;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+
+.top-bar a {
+  color: #111;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.top-bar a:hover {
+  text-decoration: underline;
+}
+
+.top-bar i {
+  margin-right: 6px;
+  color: #c19b6c;
+}
+
+
+/* Navbar fix sus */
+.navbar {
+  position: fixed;
+  top: 40px;
+  width: 100%;
+  background-color: #111; /* negru intens */
+  color: #c19b6c; /* auriu-crem */
+  padding: 15px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 9999;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.7);
+}
+
+.navbar .logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.navbar nav ul {
+  list-style: none;
+  display: flex;
+  gap: 25px;
+}
+
+.navbar nav ul li a {
+  color: #c19b6c;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.navbar nav ul li a:hover {
+  color: #fff;
+}
+
+/* Pentru ca restul conținutului să nu fie sub navbar fix */
+body > *:not(.top-bar):not(.navbar) {
+  padding-top: 110px; /* 40px + 70px */
+}
+
+/* Hero section */
+.hero-slider {
+  position: relative;
+  height: 110vh;
+  overflow: hidden;
+  color: #fff;
+  font-family: 'Merriweather', serif;
+}
+
+.slides {
+  height: 100%;
+  width: 100%;
+  position: relative;
+}
+
+.slide {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100vh;
+  background-position: center;
+  background-size: cover;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+  z-index: 0;
+}
+
+.slide.active {
+  opacity: 1;
+  z-index: 1;
+}
+
+.hero-slider::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 0;
+}
+
+.hero-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  max-width: 700px;
+  padding: 0 20px;
+  z-index: 2;
+  text-shadow: 2px 2px 6px rgba(0,0,0,0.7);
+}
+
+.hero-text h1 {
+  font-size: 3rem;
+  margin-bottom: 20px;
+  font-weight: 700;
+}
+
+.hero-text p {
+  font-size: 1.5rem;
+  margin-bottom: 30px;
+  font-weight: 400;
+}
+
+.cta {
+  background-color: #c19b6c;
+  color: #111;
+  padding: 12px 30px;
+  text-decoration: none;
+  font-weight: 600;
+  border-radius: 6px;
+  box-shadow: 0 5px 10px rgba(193,155,108,0.5);
+  transition: background-color 0.3s ease;
+}
+
+.cta:hover {
+  background-color: #a7824a;
+  color: #fff;
+}
+
+.info-section {
+  background-color: white;
+  color: black;
+  padding: 40px 20px;
+  font-family: 'Merriweather', serif;
+}
+.section-title {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 30px;
+  font-weight: bold;
+  font-family: 'Merriweather', serif;
+  color: #111;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+
+.info-section .container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.info-section .left {
+  flex: 1 1 40%;
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 8px rgba(0,0,0,0.1);
+
+  background: url('strada.jpg') no-repeat center center;
+  background-size: cover;
+
+  position: relative;
+  color: white;
+}
+
+.info-section .left h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 0;
+  text-shadow: 1px 1px 5px rgba(0,0,0,0.7);
+  z-index: 1;
+}
+
+.strada-img {
+  width: 1000px;     
+  height: 500px;
+  object-fit: cover;   
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+}
+
+.info-section .right {
+  flex: 1 1 55%;
+  background-color: #111;
+  color: white;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 0 8px rgba(0,0,0,0,2);
+  font-family:  'Merriweather', serif;
+}
+
+.info-section .right p {
+  font-size: 1.2rem;
+  line-height: 1.8;
+  margin: 0 0 20px 0; 
+  text-align: justify; 
+  text-indent: 30px;   
+}
+
+.diagram {
+    /*background: url('plain-backdrop-decorative-gray-textured.jpg') no-repeat center center;*/
+    background-color: #000;
+    background-size: cover;
+    padding: 60px 30px;
+    font-family:'Merriweather', serif;
+    color: gray; 
+    position: relative;
+    z-index: 1;
+}
+.diagram-title {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 30px;
+  font-weight: bold;
+  font-family: 'Merriweather', serif;
+  color: white;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+}
+.diagram-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 35px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Card container */
+.card {
+  background: gray;
+  width: 220px;
+  height: 350px;
+  perspective: 1000px;
+  cursor: pointer;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* Card inner for 3D rotation */
+.card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+  border-radius: 10px;
+}
+
+/* Când mouse-ul e peste card, întoarcem */
+.card:hover .card-inner {
+  transform: rotateY(180deg);
+}
+
+/* Fața cardului */
+.card-front, .card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 10px;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* Fața frontală */
+.card-front {
+  background: white; /* culoare auriu sobru */
+  color: #111;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-family: 'Merriweather', serif;
+}
+
+/* Fața din spate */
+.card-back {
+  background: #a7824a;
+  color: white;
+  transform: rotateY(180deg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Merriweather', serif;
+  text-align: center;
+}
+
+.card-back-content {
+  /*transform: rotateY(180deg);*/
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 20px; /* spațiere între text și buton */
+}
+
+.package-list {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  font-weight: 500;
+  font-family: 'Merriweather', serif;
+  margin: 0;
+}
+
+.contact-section {
+  padding: 60px 20px;
+  background-color:black;
+  color: white;
+  padding-bottom: 0;
+}
+
+.contact-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.map-side {
+  flex: 1;
+  min-width: 300px;
+  height: 500px;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.map-address-title {
+  background-color: #fff;
+  padding: 8px 15px;
+  font-family: 'Merriweather', serif;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  color: #333;
+  font-size: 16px;
+  text-align: center;
+  font-weight: bold;
+}
+
+
+.info-side {
+  flex: 1;
+  min-width: 300px;
+  padding: 20px;
+  background-color: #735322;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.info-side h2 {
+  font-family: 'Merriweather', serif;
+  margin-bottom: 10px;
+}
+
+.info-side ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 15px;
+}
+
+.info-side li {
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+.info-side a {
+  color: white;
+  text-decoration: none;
+}
+
+.info-side a:hover {
+  text-decoration: underline;
+}
+
+/* FORM STYLING */
+form {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+form input,
+form textarea {
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 16px;
+}
+
+form button {
+  padding: 10px;
+  background-color: #444;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+form button:hover {
+  background-color: #000;
+}
+
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.modal-content {
+  background-color: #fff;
+  margin: 10% auto;
+  padding: 30px;
+  border-radius: 10px;
+  width: 80%;
+  max-width: 600px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  font-family: 'Merriweather', serif;
+  position: relative;
+}
+
+.close-button {
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  cursor: pointer;
+  color: #000;
+}
+
+.details-button {
+  margin-top: 15px;
+  padding: 8px 20px;
+  background-color: white;
+  color: #111;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.details-button:hover {
+  background-color: black;
+  color: white;
+}
+
+.acte-title {
+  text-align: center;
+  font-size: 2.7rem;
+  margin-bottom: 40px;
+  font-weight: 700;
+  font-family: 'Merriweather', serif;
+  color: #1e1e1e;
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.25);
+  letter-spacing: 0.5px;
+  line-height: 1.4;
+  background: linear-gradient(to right, #f7f2ea, #ffffff);
+  padding: 20px 10px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+
+.acte-section {
+  background-color: white;
+  color: black;
+  padding: 60px 20px;
+  font-family: 'Merriweather', serif;
+}
+
+.acte-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.acte-text {
+  flex: 1;
+  min-width: 280px;
+}
+
+.acte-title {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+
+.acte-text p {
+  font-size: 1.1rem;
+  line-height: 1.7;
+}
+
+.acte-image {
+  flex: 1;
+  min-width: 280px;
+  display: flex;
+  justify-content: center;
+}
+
+.acte-image img {
+  width: 100%;
+  max-width: 500px;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+}
+
+
+.cookie-banner {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: #111;
+  color: #fff;
+  padding: 4px 1px;         /* Mai puțin padding vertical */
+  font-size: 0.90rem;        /* Text puțin mai mic */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  z-index: 99999;
+  font-family: 'Merriweather', serif;
+  box-shadow: 0 -2px 5px rgba(0,0,0,0.2);
+}
+
+.cookie-banner p {
+  margin: 0;
+  display: inline;
+  text-align: center;
+}
+
+.cookie-banner a {
+  color: #c19b6c;
+  text-decoration: underline;
+}
+
+.cookie-banner button {
+  padding: 5px 12px;
+  font-size: 0.8rem;
+  background: #c19b6c;
+  color: #111;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+}
+
+.cookie-banner button:hover {
+  background-color: #a7824a;
+  color: white;
+}
+
+.site-footer {
+  background-color: transparent;
+  color: white;
+  text-align: center;
+  padding: 10px 0;
+  font-family: 'Merriweather', serif;
+  font-size: 14px;
+  border-top: none;
+}
+
+.site-footer a {
+  color: #fff;
+  text-decoration: none;
+  margin: 0 10px;
+}
+
+.site-footer a:hover {
+  color: #c9a063;
+}
+
+
+
+
+
+@media (max-width: 768px) {
+  .info-section .container {
+    flex-direction: column;
+  }
+
+  .card {
+    width: 90%;
+    height: auto;
+  }
+
+  .hero-text h1 {
+    font-size: 2rem;
+  }
+
+  .hero-text p {
+    font-size: 1.1rem;
+  }
+}
