@@ -15,7 +15,7 @@
     <i class="fas fa-map-marker-alt"></i> Strada Ștefan Airinei, Nr. 10, Dorohoi
   </div>
   <div class="top-bar-right">
-    <i class="fas fa-clock"></i> Non-stop |
+    <i class="fas fa-clock"></i> Non-stop
     <i class="fas fa-phone"></i> <a href="tel:+40712345678">0751 975 969</a> /
     <a href="tel:+407123445678">0752 604 086</a>
   </div>
@@ -29,7 +29,9 @@
       <li><a href="#info">Despre</a></li>
       <li><a href="#service">Servicii</a></li>
       <li><a href="#acte">Acte Necesare</a></li>
+      <li><a href="#recenzii">Recenzii</a></li>
       <li><a href="#contact">Contact</a></li>
+      
     </ul>
   </nav>
 </header>
@@ -65,7 +67,7 @@
 
     <div class="right">
       <p>
-        <!-- Text de minim 20 rânduri aici -->
+    
        SC BENCHEA AGROFERM din Dorohoi este o firmă de servicii funerare dedicată sprijinirii familiilor în cele mai dificile momente ale vieții. Cu respect, compasiune și profesionalism, venim în întâmpinarea celor care au nevoie de ajutor și consiliere în organizarea unui serviciu funerar complet.
       </p>
 <p>Oferim servicii funerare complete, de la transport funerar și articole necesare înmormântării, până la consultanță și sprijin în îndeplinirea formalităților legale. Înțelegem importanța respectării tradițiilor și obiceiurilor locale și ne angajăm să răspundem cu seriozitate și promptitudine fiecărei solicitări.</p>
@@ -81,7 +83,6 @@
 </section>
 
 <section class="diagram" id="service">
-    <!-- Secțiune diagrame -->
      <h2 class="diagram-title">Servicii</h2>
       <div class="diagram-row">
 
@@ -353,10 +354,44 @@ Dacă dorești și o versiune mai scurtă pentru secțiunea „Servicii” sau p
   </div>
 </section>
 
+
+<section id="recenzii" class="reviews-section">
+  <div class="reviews-container">
+    <div class="reviews-head">
+      <h2>Recenzii</h2>
+      <p>Spune-ne cum a fost experiența ta — feedback-ul tău contează.</p>
+    </div>
+
+    <form action="" method="post" class="review-form">
+      <div class="form-grid">
+        <div class="field">
+          <label for="nume">Nume</label>
+          <input type="text" id="nume" name="nume" required>
+        </div>
+        <div class="field">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required>
+        </div>
+      </div>
+      <div class="field">
+        <label for="text_recenzie">Recenzie</label>
+        <textarea id="text_recenzie" name="text_recenzie" rows="5" required></textarea>
+      </div>
+      <button type="submit" class="btn-review">Trimite recenzia</button>
+    </form>
+
+    <h3 class="reviews-subtitle">Recenzii existente</h3>
+    <div class="reviews-list">
+      
+     
+    </div>
+  </div>
+</section>
+
 <section id="contact" class="contact-section">
   <div class="container contact-container">
     
-    <!-- HARTA -->
+
     <div class="map-side">
       <div class="map-address-title">
     <h3>Strada Ștefan Airinei nr. 10, Dorohoi</h3>
@@ -372,7 +407,6 @@ Dacă dorești și o versiune mai scurtă pentru secțiunea „Servicii” sau p
       </iframe>
     </div>
 
-    <!-- INFORMATII + FORMULAR -->
     <div class="info-side">
       <h2>Contactează-ne</h2>
       <p>SC BENCHEA AGROFERM</p>
@@ -383,16 +417,17 @@ Dacă dorești și o versiune mai scurtă pentru secțiunea „Servicii” sau p
   <strong>Telefon:</strong> <a href="tel:+40712345678">+40 751 975 969</a><br>
   <span style="padding-left: 66px;"><a href="tel:+407123445678">+40 752 604 086</a></span>
 </li>
-        <li><strong>Email:</strong> <a href="mailto:contact@funerareexemplu.ro">contact@funerareexemplu.ro</a></li>
+        <li><strong>Email:</strong> <a href="mailto:bencheamihaela.gabi@gmail.com">bencheamihaela.gabi@gmail.com</a></li>
         <li><strong>Program:</strong> Non-stop</li>
       </ul>
 
-      <form action="mailto:xgamingjr4567@gmail.com" method="post" enctype="text/plain">
-        <input type="text" name="name" placeholder="Nume complet" required />
-        <input type="email" name="email" placeholder="Adresă de email" required />
-        <textarea name="message" rows="5" placeholder="Mesajul tău..." required></textarea>
-        <button type="submit">Trimite mesaj</button>
-      </form>
+      <form action="trimite_mail.php" method="post">
+    <input type="text" name="nume" placeholder="Nume complet" required />
+    <input type="email" name="email" placeholder="Adresă de email" required />
+    <textarea name="mesaj" rows="5" placeholder="Mesajul tău..." required></textarea>
+    <button type="submit">Trimite mesaj</button>
+</form>
+
     </div>
   </div>
 
@@ -407,8 +442,6 @@ Dacă dorești și o versiune mai scurtă pentru secțiunea „Servicii” sau p
 </section>
 
 
-
-
 <div id="cookie-banner" class="cookie-banner">
    <p>
     Folosim cookie-uri pentru a îmbunătăți experiența pe site. 
@@ -419,12 +452,7 @@ Dacă dorești și o versiune mai scurtă pentru secțiunea „Servicii” sau p
 </div>
 
 
-
-
-
 <script src="script.js"></script>
-
-
 
 </body>
 </html>
