@@ -60,4 +60,45 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
+const form = document.getElementById("review-form");
+const lista = document.getElementById("lista-recenzii");
+
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const data = {
+    nume: form.nume.value,
+    email: form.email.value,
+    text_recenzie: form.text_recenzie.value
+  };
+
+  const res = await fetch("/api/recenzii", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data)
+  });
+
+  if (res.ok) {
+    form.reset();
+    incarcaRecenzii();
+  } else {
+    alert("Eroare la trimiterea recenziei!");
+  }
+});
+
+async function incarcaRecenzii() {
+  const res = await fetch("/api/recenzii");
+  const recenzii = await res.json();
+
+  lista.innerHTML = recenzii.map(r => `
+    <article class="recenzie">
+      <h4>${r.nume}</h4>
+      <p>${r.text_recenzie}</p>
+      <small>${new Date(r.data).toLocaleDateString()}</small>
+    </article>
+  `).join("");
+}
+
+document.addEventListener("DOMContentLoaded", incarcaRecenzii);
+
 
