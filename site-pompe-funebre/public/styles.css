@@ -826,6 +826,9 @@ form button:hover {
   line-height: 1.7;
 }
 
+
+
+
 /* =========================
    Media Queries
    ========================= */
@@ -867,4 +870,53 @@ form button:hover {
   .hero-slider { padding-bottom: 12px; }
 }
 
+
+/* === MODAL FIX PE MOBIL === */
+@media (max-width: 768px){
+  /* pune modalul peste toate barele și centrează-l corect */
+  .modal{
+    position: fixed;
+    inset: 0;
+    z-index: 2147483647 !important;   /* > top-bar(10000) și cookie(99999) */
+    background: rgba(0,0,0,.7);
+    display: none;
+    align-items: flex-start;          /* IMPORTANT: aliniere sus */
+    justify-content: center;
+    padding: 120px 12px 16px;         /* offset pentru top-bar + navbar */
+    overflow: hidden;                 /* nu scrola overlay-ul, scrolăm interiorul */
+    overscroll-behavior: contain;
+  }
+  /* dacă JS dă display:block inline, forțează flex ca să se centreze */
+  .modal[style*="display: block"]{ display: flex !important; }
+
+  /* conținutul devine scrollabil înăuntru și nu mai intră sub header */
+  .modal-content{
+    margin: 0;                        /* anulează margin:10% auto */
+    width: 94vw;
+    max-height: calc(100dvh - 140px); /* viewport - padding/top offset */
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    position: relative;
+  }
+
+  /* X mereu accesibil; rămâne vizibil la scroll */
+  .close-button{
+    position: sticky;
+    top: 0;
+    align-self: flex-end;
+    background: #fff;                  /* fundal, să nu se piardă */
+    padding: 6px 10px;
+    border-radius: 6px;
+    z-index: 2;
+  }
+}
+
+/* când modalul e deschis, blochează scroll-ul paginii din spate */
+body.modal-open{
+  overflow: hidden;
+  height: 100dvh;   /* sigur pe mobil */
+}
+
+/* pentru ancore (#contact, #service) să nu intre sub header */
+section[id], div[id]{ scroll-margin-top: 120px; }
 

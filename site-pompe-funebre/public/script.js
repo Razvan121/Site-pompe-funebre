@@ -128,3 +128,58 @@ const modal = document.querySelector('#modal-serviciu');   // id-ul modalului t�
     document.body.classList.remove('modal-open');
   });
 
+
+
+  function mountToBody(modal){
+  if (modal && modal.parentNode !== document.body) document.body.appendChild(modal);
+}
+
+function openModalById(id){
+  const modal = document.getElementById(id);
+  if (!modal) return;
+  mountToBody(modal);                 // scoate-o din secțiune ca să nu fie prinsă în stacking contexts
+  modal.classList.add('open');        // afişează (CSS .modal.open)
+  document.body.classList.add('modal-open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal(modal){
+  if (!modal) return;
+  modal.classList.remove('open');
+  document.body.classList.remove('modal-open');
+  document.body.style.overflow = '';
+}
+
+document.querySelectorAll('.details-button').forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    e.preventDefault();
+    const id = btn.getAttribute('data-modal');
+    openModalById(id);
+  });
+});
+
+document.addEventListener('click', (e) => {
+  // X apăsat
+  if (e.target.closest('.close-button')) {
+    closeModal(e.target.closest('.modal'));
+    return;
+  }
+  // click pe overlay
+  const opened = document.querySelectorAll('.modal.open');
+  opened.forEach(m => { if (e.target === m) closeModal(m); });
+});
+
+window.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    document.querySelectorAll('.modal.open').forEach(m => closeModal(m));
+  }
+});
+
+
+// la DESCHIDERE (unde ai: modal.style.display = 'block';)
+modal.style.display = 'block';
+document.body.classList.add('modal-open');
+
+// la ÎNCHIDERE (unde ascunzi modalul)
+this.closest('.modal').style.display = 'none';
+document.body.classList.remove('modal-open');
