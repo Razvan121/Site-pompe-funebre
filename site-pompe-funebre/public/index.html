@@ -390,24 +390,12 @@ Dacă dorești și o versiune mai scurtă pentru secțiunea „Servicii” sau p
         <li><strong>Program:</strong> Non-stop</li>
       </ul>
 
-    <form method="post" action="https://formspree.io/f/xgvlqdod"> <!-- action trebuie setat către backend sau Formspree/EmailJS -->
-  <label>
-    Nume Complet
-    <input type="text" name="nume" required />
-  </label>
+    <form action="https://formspree.io/f/xgvlqdod" method="post"> 
+      <input type="text" name="nume" placeholder="Nume complet" required /> 
+      <input type="email" name="email" placeholder="Adresă de email" required />
+       <textarea name="mesaj" rows="5" placeholder="Mesajul tău..." required>
 
-  <label>
-    Adresă de email
-    <input type="email" name="email" required />
-  </label>
-
-  <label>
-    Mesajul tău
-    <textarea name="mesaj" rows="5" required></textarea>
-  </label>
-
-  <button type="submit">Trimite mesaj</button>
-</form>
+       </textarea> <button type="submit">Trimite mesaj</button> </form>
 
 
     </div>
