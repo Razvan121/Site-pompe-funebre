@@ -390,20 +390,25 @@ Dacă dorești și o versiune mai scurtă pentru secțiunea „Servicii” sau p
         <li><strong>Program:</strong> Non-stop</li>
       </ul>
 
-     <form
-  action="https://formspree.io/f/xgvlqdod"
-  method="POST"
->
+    <form method="post" action="https://formspree.io/f/xgvlqdod"> <!-- action trebuie setat către backend sau Formspree/EmailJS -->
   <label>
-    bencheamihaela.gabi@gmail.com
-    <input type="email" NumeComplet="email">
+    Nume Complet
+    <input type="text" name="nume" required />
   </label>
+
   <label>
-    <textarea name="message"></textarea>
+    Adresă de email
+    <input type="email" name="email" required />
   </label>
-  <!-- your other form fields go here -->
-  <button type="submit">Send</button>
+
+  <label>
+    Mesajul tău
+    <textarea name="mesaj" rows="5" required></textarea>
+  </label>
+
+  <button type="submit">Trimite mesaj</button>
 </form>
+
 
     </div>
   </div>
