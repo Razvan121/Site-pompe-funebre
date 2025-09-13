@@ -102,3 +102,29 @@ async function incarcaRecenzii() {
 document.addEventListener("DOMContentLoaded", incarcaRecenzii);
 
 
+
+
+const modal = document.querySelector('#modal-serviciu');   // id-ul modalului tău
+  const openBtns = document.querySelectorAll('.details-button');
+  const closeBtn = modal?.querySelector('.close-button');
+
+  openBtns.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      modal.classList.add('open');
+      document.body.classList.add('modal-open');
+    });
+  });
+
+  // închidere pe X sau click pe fundal
+  modal?.addEventListener('click', (e) => {
+    if (e.target === modal) { // click pe overlay
+      modal.classList.remove('open');
+      document.body.classList.remove('modal-open');
+    }
+  });
+  closeBtn?.addEventListener('click', () => {
+    modal.classList.remove('open');
+    document.body.classList.remove('modal-open');
+  });
+
