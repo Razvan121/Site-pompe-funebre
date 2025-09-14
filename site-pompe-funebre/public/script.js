@@ -183,3 +183,42 @@ document.body.classList.add('modal-open');
 // la ÎNCHIDERE (unde ascunzi modalul)
 this.closest('.modal').style.display = 'none';
 document.body.classList.remove('modal-open');
+
+
+
+const contactForm = document.getElementById('contact-form');
+const statusEl    = document.getElementById('form-status');
+const sendBtn     = document.getElementById('send-btn');
+
+if (contactForm) {
+  contactForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    statusEl.textContent = 'Se trimite...';
+    statusEl.className = 'form-status';
+    sendBtn.disabled = true;
+
+    try {
+      const res = await fetch(contactForm.action, {
+        method: 'POST',
+        body: new FormData(contactForm),
+        headers: { 'Accept': 'application/json' }   // <- asta oprește redirectul
+      });
+
+      if (res.ok) {
+        contactForm.reset();
+        statusEl.textContent = 'Mulțumim! Mesajul a fost trimis.';
+        statusEl.classList.add('ok');
+      } else {
+        const data = await res.json().catch(() => null);
+        const msg = data?.errors?.map(e => e.message).join(', ') || 'Eroare la trimitere. Încearcă din nou.';
+        statusEl.textContent = msg;
+        statusEl.classList.add('err');
+      }
+    } catch {
+      statusEl.textContent = 'Conexiune indisponibilă. Încearcă din nou.';
+      statusEl.classList.add('err');
+    } finally {
+      sendBtn.disabled = false;
+    }
+  });
+}

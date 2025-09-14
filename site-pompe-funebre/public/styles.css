@@ -328,9 +328,7 @@ body > *:not(.top-bar):not(.navbar) {
   border-radius: 10px;
 }
 
-.card:hover .card-inner {
-  transform: rotateY(180deg);
-}
+
 
 .card-front,
 .card-back {
@@ -607,50 +605,60 @@ form button:hover {
 /* =========================
    Cookie Banner & Footer
    ========================= */
-.cookie-banner {
+/* COOKIE BAR — ultra slim, exact cât textul */
+.cookie-banner{
   position: fixed;
-  bottom: 0;
-  width: 100%;
+  left: 0; right: 0; bottom: 0;
   background: #111;
   color: #fff;
-  padding: 4px 1px;
-  font-size: 0.90rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
   z-index: 99999;
-  font-family: 'Merriweather', serif;
-  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+
+  padding: 4px 8px !important;   /* micșorat */
+  line-height: 1.1 !important;
+  font-size: .82rem !important;
+  box-shadow: 0 -1px 3px rgba(0,0,0,.25);
+  height: auto !important;       /* fără înălțime suplimentară */
 }
 
-.cookie-banner p {
+.cookie-banner p{
   margin: 0;
-  display: inline;
+  white-space: nowrap;           /* forțează un singur rând */
+  overflow: hidden;
+  text-overflow: ellipsis;       /* taie cu … dacă nu încape */
+  max-width: 75vw;               /* nu lasă textul să lărgească bara */
   text-align: center;
+  padding: 0;
 }
 
-.cookie-banner a {
+.cookie-banner a{
   color: #c19b6c;
   text-decoration: underline;
+  white-space: nowrap;
 }
 
-.cookie-banner button {
-  padding: 5px 12px;
-  font-size: 0.8rem;
+.cookie-banner button{
+  padding: 4px 10px !important;  /* buton mai mic */
+  font-size: .82rem !important;
   background: #c19b6c;
   color: #111;
   border: none;
-  border-radius: 5px;
+  border-radius: 6px;
+  font-weight: 700;
   cursor: pointer;
-  font-weight: 500;
-  transition: background-color 0.3s ease;
 }
 
-.cookie-banner button:hover {
-  background-color: #a7824a;
-  color: white;
+/* telefoane înguste: păstrăm UN SINGUR rând cu siguranță */
+@media (max-width: 480px){
+  .cookie-banner{ gap: 8px; padding: 4px 6px !important; font-size: .78rem !important; }
+  .cookie-banner p{ max-width: 62vw; }
+  .cookie-banner p a:last-child{ display: none; } /* ascunde "Confidențialitate" dacă nu încape */
 }
+
 
 .site-footer {
   background-color: transparent;
@@ -826,6 +834,54 @@ form button:hover {
   line-height: 1.7;
 }
 
+/* ==== Card front cu poză + caption lizibil ==== */
+.card-front--image{
+  position: relative;
+  display: block !important;                   /* înlocuiește flex-ul doar pe varianta cu poză */
+  background: var(--bg, none) center/cover no-repeat;
+  color: #fff;                                  /* text alb peste imagine */
+  padding: 0;                                   /* nu mai avem padding pe container */
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+/* overlay de contrast pentru text (jos) */
+.card-front--image::after{
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: 0; height: 50%;
+  background: linear-gradient(to top, rgba(0,0,0,.55), rgba(0,0,0,0));
+  pointer-events: none;
+}
+
+/* caption-ul (titlu + subtitlu) așezat jos, peste overlay */
+.card-front--image .cf-caption{
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  padding: 14px 16px;
+  text-align: left;
+  z-index: 1;
+  text-shadow: 0 2px 8px rgba(0,0,0,.5);
+}
+
+.card-front--image .cf-caption h3{
+  margin: 0 0 6px 0;
+  font-size: 1.2rem;
+  line-height: 1.2;
+}
+.card-front--image .cf-caption p{
+  margin: 0;
+  font-size: .95rem;
+  opacity: .95;
+}
+
+/* mic polishing pe ecrane foarte mici */
+@media (max-width: 380px){
+  .card-front--image .cf-caption h3{ font-size: 1.1rem; }
+  .card-front--image .cf-caption p{ font-size: .9rem; }
+}
+
+
 
 
 
@@ -919,4 +975,7 @@ body.modal-open{
 
 /* pentru ancore (#contact, #service) să nu intre sub header */
 section[id], div[id]{ scroll-margin-top: 120px; }
+
+
+
 
