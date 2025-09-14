@@ -1,224 +1,206 @@
-const slides = document.querySelectorAll('.slide');
-const prevBtn = document.getElementById('prev');
-const nextBtn = document.getElementById('next');
+/* =========================
+   SLIDER
+========================= */
+(() => {
+  const slides = document.querySelectorAll('.slide');
+  if (!slides.length) return;
 
-let current = 0;
+  const prevBtn = document.getElementById('prev');
+  const nextBtn = document.getElementById('next');
+  let current = 0;
 
-function showSlide(index) {
-  slides.forEach((slide, i) => {
-    slide.classList.toggle('active', i === index);
+  const show = (i) => slides.forEach((s, idx) => s.classList.toggle('active', idx === i));
+  show(current);
+
+  prevBtn?.addEventListener('click', () => {
+    current = (current === 0) ? slides.length - 1 : current - 1;
+    show(current);
   });
-}
 
-prevBtn.addEventListener('click', () => {
-  current = (current === 0) ? slides.length - 1 : current - 1;
-  showSlide(current);
-});
-
-nextBtn.addEventListener('click', () => {
-  current = (current === slides.length - 1) ? 0 : current + 1;
-  showSlide(current);
-});
-
-
-setInterval(() => {
-  current = (current === slides.length - 1) ? 0 : current + 1;
-  showSlide(current);
-}, 3500);
-document.querySelectorAll('.details-button').forEach(button => {
-  button.addEventListener('click', function () {
-    const modalId = this.getAttribute('data-modal');
-    const modal = document.getElementById(modalId);
-    if (modal) modal.style.display = 'block';
+  nextBtn?.addEventListener('click', () => {
+    current = (current === slides.length - 1) ? 0 : current + 1;
+    show(current);
   });
-});
 
-document.querySelectorAll('.close-button').forEach(button => {
-  button.addEventListener('click', function () {
-    this.closest('.modal').style.display = 'none';
-  });
-});
+  setInterval(() => {
+    current = (current === slides.length - 1) ? 0 : current + 1;
+    show(current);
+  }, 3500);
+})();
 
-window.addEventListener('click', function (e) {
-  document.querySelectorAll('.modal').forEach(modal => {
-    if (e.target === modal) modal.style.display = 'none';
-  });
-});
-
-
-document.addEventListener("DOMContentLoaded", function () {
-  const banner = document.getElementById("cookie-banner");
-  const acceptBtn = document.getElementById("accept-cookies");
-
-  if (!localStorage.getItem("cookiesAccepted")) {
-    banner.style.display = "block";
+/* =========================
+   MODALE (unificate)
+========================= */
+(() => {
+  function mountToBody(m) {
+    if (m && m.parentNode !== document.body) document.body.appendChild(m);
+  }
+  function openById(id) {
+    const m = document.getElementById(id);
+    if (!m) return;
+    mountToBody(m);
+    m.style.display = 'flex';            // compatibil cu CSS-ul tău
+    m.classList.add('open');
+    document.body.classList.add('modal-open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeModal(m) {
+    if (!m) return;
+    m.classList.remove('open');
+    m.style.display = 'none';
+    document.body.classList.remove('modal-open');
+    document.body.style.overflow = '';
   }
 
-  acceptBtn.addEventListener("click", function () {
-    localStorage.setItem("cookiesAccepted", "true");
-    banner.style.display = "none";
-  });
-});
-
-const form = document.getElementById("review-form");
-const lista = document.getElementById("lista-recenzii");
-
-form.addEventListener("submit", async (e) => {
-  e.preventDefault();
-
-  const data = {
-    nume: form.nume.value,
-    email: form.email.value,
-    text_recenzie: form.text_recenzie.value
-  };
-
-  const res = await fetch("/api/recenzii", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(data)
-  });
-
-  if (res.ok) {
-    form.reset();
-    incarcaRecenzii();
-  } else {
-    alert("Eroare la trimiterea recenziei!");
-  }
-});
-
-async function incarcaRecenzii() {
-  const res = await fetch("/api/recenzii");
-  const recenzii = await res.json();
-
-  lista.innerHTML = recenzii.map(r => `
-    <article class="recenzie">
-      <h4>${r.nume}</h4>
-      <p>${r.text_recenzie}</p>
-      <small>${new Date(r.data).toLocaleDateString()}</small>
-    </article>
-  `).join("");
-}
-
-document.addEventListener("DOMContentLoaded", incarcaRecenzii);
-
-
-
-
-const modal = document.querySelector('#modal-serviciu');   // id-ul modalului tău
-  const openBtns = document.querySelectorAll('.details-button');
-  const closeBtn = modal?.querySelector('.close-button');
-
-  openBtns.forEach(btn => {
+  // open din butoane
+  document.querySelectorAll('.details-button[data-modal]').forEach(btn => {
     btn.addEventListener('click', (e) => {
       e.preventDefault();
-      modal.classList.add('open');
-      document.body.classList.add('modal-open');
+      openById(btn.getAttribute('data-modal'));
     });
   });
 
-  // închidere pe X sau click pe fundal
-  modal?.addEventListener('click', (e) => {
-    if (e.target === modal) { // click pe overlay
-      modal.classList.remove('open');
-      document.body.classList.remove('modal-open');
+  // close pe X sau click pe overlay
+  document.addEventListener('click', (e) => {
+    if (e.target.closest('.close-button')) {
+      closeModal(e.target.closest('.modal'));
+      return;
+    }
+    if (e.target.classList?.contains('modal')) {
+      closeModal(e.target);
     }
   });
-  closeBtn?.addEventListener('click', () => {
-    modal.classList.remove('open');
-    document.body.classList.remove('modal-open');
+
+  // ESC
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      document.querySelectorAll('.modal.open').forEach(closeModal);
+    }
   });
+})();
 
+/* =========================
+   COOKIE BANNER
+========================= */
+(() => {
+  const banner = document.getElementById('cookie-banner');
+  const acceptBtn = document.getElementById('accept-cookies');
+  if (!banner || !acceptBtn) return;
 
+  if (!localStorage.getItem('cookiesAccepted')) {
+    banner.style.display = 'flex';
+  }
+  acceptBtn.addEventListener('click', () => {
+    localStorage.setItem('cookiesAccepted', 'true');
+    banner.style.display = 'none';
+  });
+})();
 
-  function mountToBody(modal){
-  if (modal && modal.parentNode !== document.body) document.body.appendChild(modal);
-}
+/* =========================
+   RECENZII
+========================= */
+(() => {
+  const form = document.getElementById('review-form');
+  const lista = document.getElementById('lista-recenzii');
+  if (!form || !lista) return;
 
-function openModalById(id){
-  const modal = document.getElementById(id);
-  if (!modal) return;
-  mountToBody(modal);                 // scoate-o din secțiune ca să nu fie prinsă în stacking contexts
-  modal.classList.add('open');        // afişează (CSS .modal.open)
-  document.body.classList.add('modal-open');
-  document.body.style.overflow = 'hidden';
-}
+  async function incarcaRecenzii() {
+    try {
+      const res = await fetch('/api/recenzii');
+      const recenzii = await res.json();
+      lista.innerHTML = recenzii.map(r => `
+        <article class="recenzie">
+          <h4>${r.nume}</h4>
+          <p>${r.text_recenzie}</p>
+          <small>${new Date(r.data).toLocaleDateString()}</small>
+        </article>
+      `).join('');
+    } catch (err) {
+      console.error('Eroare încărcare recenzii', err);
+    }
+  }
 
-function closeModal(modal){
-  if (!modal) return;
-  modal.classList.remove('open');
-  document.body.classList.remove('modal-open');
-  document.body.style.overflow = '';
-}
-
-document.querySelectorAll('.details-button').forEach(btn => {
-  btn.addEventListener('click', (e) => {
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    const id = btn.getAttribute('data-modal');
-    openModalById(id);
+    const data = {
+      nume: form.nume.value.trim(),
+      email: form.email.value.trim(),
+      text_recenzie: form.text_recenzie.value.trim()
+    };
+    try {
+      const res = await fetch('/api/recenzii', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(data)
+      });
+      if (res.ok) {
+        form.reset();
+        incarcaRecenzii();
+      } else {
+        alert('Eroare la trimiterea recenziei!');
+      }
+    } catch {
+      alert('Conexiune indisponibilă.');
+    }
   });
-});
 
-document.addEventListener('click', (e) => {
-  // X apăsat
-  if (e.target.closest('.close-button')) {
-    closeModal(e.target.closest('.modal'));
-    return;
-  }
-  // click pe overlay
-  const opened = document.querySelectorAll('.modal.open');
-  opened.forEach(m => { if (e.target === m) closeModal(m); });
-});
+  // prima încărcare
+  incarcaRecenzii();
+})();
 
-window.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') {
-    document.querySelectorAll('.modal.open').forEach(m => closeModal(m));
-  }
-});
+/* =========================
+   FORMULAR CONTACT (Formspree, fără redirect)
+========================= */
+(() => {
+  const contactForm = document.getElementById('contact-form');
+  if (!contactForm) return;
 
+  const statusEl = document.getElementById('form-status');
+  const sendBtn  = document.getElementById('send-btn');
 
-// la DESCHIDERE (unde ai: modal.style.display = 'block';)
-modal.style.display = 'block';
-document.body.classList.add('modal-open');
-
-// la ÎNCHIDERE (unde ascunzi modalul)
-this.closest('.modal').style.display = 'none';
-document.body.classList.remove('modal-open');
-
-
-
-const contactForm = document.getElementById('contact-form');
-const statusEl    = document.getElementById('form-status');
-const sendBtn     = document.getElementById('send-btn');
-
-if (contactForm) {
   contactForm.addEventListener('submit', async (e) => {
     e.preventDefault();
-    statusEl.textContent = 'Se trimite...';
-    statusEl.className = 'form-status';
-    sendBtn.disabled = true;
+
+    statusEl && (statusEl.textContent = 'Se trimite...');
+    statusEl && (statusEl.className = 'form-status');
+    sendBtn && (sendBtn.disabled = true);
 
     try {
       const res = await fetch(contactForm.action, {
         method: 'POST',
         body: new FormData(contactForm),
-        headers: { 'Accept': 'application/json' }   // <- asta oprește redirectul
+        headers: { 'Accept': 'application/json' } // <- oprește redirectul
       });
 
       if (res.ok) {
-        contactForm.reset();
-        statusEl.textContent = 'Mulțumim! Mesajul a fost trimis.';
-        statusEl.classList.add('ok');
+        contactForm.reset();  // ← goliți câmpurile
+        statusEl && (statusEl.textContent = 'Mulțumim! Mesajul a fost trimis.');
+        statusEl && statusEl.classList.add('ok');
       } else {
         const data = await res.json().catch(() => null);
-        const msg = data?.errors?.map(e => e.message).join(', ') || 'Eroare la trimitere. Încearcă din nou.';
-        statusEl.textContent = msg;
-        statusEl.classList.add('err');
+        const msg = data?.errors?.map(e => e.message).join(', ')
+                 || 'Eroare la trimitere. Încearcă din nou.';
+        statusEl && (statusEl.textContent = msg);
+        statusEl && statusEl.classList.add('err');
       }
     } catch {
-      statusEl.textContent = 'Conexiune indisponibilă. Încearcă din nou.';
-      statusEl.classList.add('err');
+      statusEl && (statusEl.textContent = 'Conexiune indisponibilă. Încearcă din nou.');
+      statusEl && statusEl.classList.add('err');
     } finally {
-      sendBtn.disabled = false;
+      sendBtn && (sendBtn.disabled = false);
     }
   });
-}
+})();
+
+
+// setează offset-ul real (top-bar + navbar) ca să nu mai intre sub ele
+(() => {
+  function applyHeaderOffset(){
+    const top = document.querySelector('.top-bar')?.offsetHeight || 0;
+    const nav = document.querySelector('.navbar')?.offsetHeight || 0;
+    document.documentElement.style.setProperty('--header-offset', (top + nav) + 'px');
+  }
+  applyHeaderOffset();
+  window.addEventListener('resize', applyHeaderOffset);
+  window.addEventListener('orientationchange', applyHeaderOffset);
+})();

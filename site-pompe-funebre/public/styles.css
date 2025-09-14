@@ -978,4 +978,104 @@ section[id], div[id]{ scroll-margin-top: 120px; }
 
 
 
+/* modalul stă peste orice */
+.modal{ z-index: 2147483646 !important; }
+
+/* cât e deschis modalul, barele nu mai stau peste el */
+body.modal-open .top-bar,
+body.modal-open .navbar,
+body.modal-open .cookie-banner{
+  z-index: 1 !important;
+  pointer-events: none;   /* să nu fure tap-uri */
+}
+
+/* ascunde vizual cookie bar-ul ca să nu deranjeze pe telefoane mici */
+body.modal-open #cookie-banner{
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* offset corect pe mobil: X mereu vizibil, conținut scrollabil în interior */
+:root{ --header-offset: 110px; } /* fallback – JS o setează corect */
+@media (max-width: 1024px){
+  .modal{
+    align-items: flex-start !important;
+    justify-content: center !important;
+    padding-top: calc(var(--header-offset) + 8px) !important; /* sub header */
+  }
+  .modal-content{
+    margin: 0 !important;
+    max-height: calc(100dvh - (var(--header-offset) + 24px)) !important;
+    overflow: auto !important;
+    -webkit-overflow-scrolling: touch;
+    position: relative !important;
+  }
+  /* X fix în colțul din dreapta-sus */
+  .modal .close-button{
+    position: fixed !important;
+    top: calc(env(safe-area-inset-top, 0px) + var(--header-offset) + 8px) !important;
+    right: 12px !important;
+    background: #fff;
+    color: #000;
+    border-radius: 8px;
+    padding: 6px 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,.25);
+    z-index: 2147483647 !important;
+  }
+}
+
+/* blochează scroll-ul paginii când e modalul deschis */
+body.modal-open{
+  overflow: hidden !important;
+  height: 100dvh !important;
+}
+
+
+/* offset corect sub top-bar + navbar (JS-ul tău deja setează variabila) */
+:root { --header-offset: 110px; }
+
+/* overlay peste tot și aliniere corectă pe mobil */
+.modal{
+  z-index: 2147483646 !important;
+  align-items: flex-start !important;        /* începe de sus, nu centrat vertical */
+  justify-content: center !important;
+  padding: calc(var(--header-offset) + 12px) 12px 16px !important; /* SPAȚIU SUS */
+  background: rgba(0,0,0,.75) !important;
+}
+
+/* cutia albă mai „curată” + scrol în interior */
+.modal-content{
+  margin: 0 !important;
+  width: min(680px, 92vw) !important;
+  max-height: calc(100dvh - (var(--header-offset) + 28px)) !important;
+  overflow: auto !important;
+  -webkit-overflow-scrolling: touch;
+  border-radius: 12px !important;
+  box-shadow: 0 10px 30px rgba(0,0,0,.35);
+  padding: clamp(16px, 3vw, 22px) !important;
+}
+
+/* X mereu vizibil, lipit de colțul din dreapta-sus */
+.modal .close-button{
+  position: fixed !important;
+  top: calc(env(safe-area-inset-top, 0px) + var(--header-offset) + 8px) !important;
+  right: 12px !important;
+  z-index: 2147483647 !important;
+  background: #fff; color:#000;
+  border-radius: 10px; padding: 6px 10px;
+  box-shadow: 0 2px 10px rgba(0,0,0,.25);
+}
+
+/* cât timp e deschis modalul, barele nu acoperă nimic */
+body.modal-open .top-bar,
+body.modal-open .navbar,
+body.modal-open .cookie-banner{
+  z-index: 1 !important;
+  pointer-events: none;
+}
+
+/* mic extra spațiu jos ca să nu se „lipească” de marginea ecranului */
+@supports (height: 100dvh){
+  .modal-content{ max-height: calc(100dvh - (var(--header-offset) + 28px)) !important; }
+}
 
