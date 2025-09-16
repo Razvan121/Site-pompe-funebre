@@ -92,9 +92,9 @@ body {
   color: #fff;
 }
 
-/* împingere conținut sub barele fixe */
+
 body > *:not(.top-bar):not(.navbar) {
-  padding-top: 110px; /* 40px + 70px */
+  padding-top: 110px; 
 }
 
 /* =========================
@@ -277,24 +277,23 @@ body > *:not(.top-bar):not(.navbar) {
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
 }
 
-/* 1) Containerul de carduri: trecem pe grid fluid */
+
 .diagram-row {
   display: grid !important;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 20px;                 /* puțin mai mic decât 35px ca să încapă mai bine pe mobil */
+  gap: 20px;                
   max-width: 1200px;
   margin: 0 auto;
-  justify-items: center;     /* centrează cardurile pe coloana lor */
+  justify-items: center;     
 }
 
-/* 2) Cardul: lățime flexibilă, raport constant (fără width fix care rupe pe mobil) */
 .card {
   background: gray;
-  width: 100% !important;     /* ia lățimea coloanei din grid */
-  max-width: 320px;           /* nu depăși prea mult pe desktop */
-  aspect-ratio: 22 / 35;      /* ~220x350 menține proporția frumos pe orice ecran */
-  /* fallback pentru browsere fără aspect-ratio: */
-  height: auto;               /* va fi ignorat când aspect-ratio e suportat */
+  width: 100% !important;   
+  max-width: 320px;         
+  aspect-ratio: 22 / 35;    
+
+  height: auto;              
 
   perspective: 1000px;
   cursor: pointer;
@@ -302,9 +301,7 @@ body > *:not(.top-bar):not(.navbar) {
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
-/* 3) Asigură-te că mecanica flip rămâne corectă */
 
-/* 4) Micro-tuning pe ecrane foarte înguste */
 @media (max-width: 380px) {
   .diagram-row { gap: 16px; }
   .card { max-width: 300px; }
@@ -622,15 +619,15 @@ form button:hover {
   line-height: 1.1 !important;
   font-size: .82rem !important;
   box-shadow: 0 -1px 3px rgba(0,0,0,.25);
-  height: auto !important;       /* fără înălțime suplimentară */
+  height: auto !important;      
 }
 
 .cookie-banner p{
   margin: 0;
-  white-space: nowrap;           /* forțează un singur rând */
+  white-space: nowrap;        
   overflow: hidden;
-  text-overflow: ellipsis;       /* taie cu … dacă nu încape */
-  max-width: 75vw;               /* nu lasă textul să lărgească bara */
+  text-overflow: ellipsis;      
+  max-width: 75vw;               
   text-align: center;
   padding: 0;
 }
@@ -642,7 +639,7 @@ form button:hover {
 }
 
 .cookie-banner button{
-  padding: 4px 10px !important;  /* buton mai mic */
+  padding: 4px 10px !important;  
   font-size: .82rem !important;
   background: #c19b6c;
   color: #111;
@@ -652,11 +649,11 @@ form button:hover {
   cursor: pointer;
 }
 
-/* telefoane înguste: păstrăm UN SINGUR rând cu siguranță */
+
 @media (max-width: 480px){
   .cookie-banner{ gap: 8px; padding: 4px 6px !important; font-size: .78rem !important; }
   .cookie-banner p{ max-width: 62vw; }
-  .cookie-banner p a:last-child{ display: none; } /* ascunde "Confidențialitate" dacă nu încape */
+  .cookie-banner p a:last-child{ display: none; } 
 }
 
 
@@ -834,18 +831,17 @@ form button:hover {
   line-height: 1.7;
 }
 
-/* ==== Card front cu poză + caption lizibil ==== */
 .card-front--image{
   position: relative;
-  display: block !important;                   /* înlocuiește flex-ul doar pe varianta cu poză */
+  display: block !important;                  
   background: var(--bg, none) center/cover no-repeat;
-  color: #fff;                                  /* text alb peste imagine */
-  padding: 0;                                   /* nu mai avem padding pe container */
+  color: #fff;                                 
+  padding: 0;                              
   overflow: hidden;
   border-radius: 10px;
 }
 
-/* overlay de contrast pentru text (jos) */
+
 .card-front--image::after{
   content: "";
   position: absolute;
@@ -854,7 +850,7 @@ form button:hover {
   pointer-events: none;
 }
 
-/* caption-ul (titlu + subtitlu) așezat jos, peste overlay */
+
 .card-front--image .cf-caption{
   position: absolute;
   left: 0; right: 0; bottom: 0;
@@ -875,7 +871,7 @@ form button:hover {
   opacity: .95;
 }
 
-/* mic polishing pe ecrane foarte mici */
+
 @media (max-width: 380px){
   .card-front--image .cf-caption h3{ font-size: 1.1rem; }
   .card-front--image .cf-caption p{ font-size: .9rem; }
@@ -927,81 +923,78 @@ form button:hover {
 }
 
 
-/* === MODAL FIX PE MOBIL === */
+
 @media (max-width: 768px){
-  /* pune modalul peste toate barele și centrează-l corect */
+
   .modal{
     position: fixed;
     inset: 0;
-    z-index: 2147483647 !important;   /* > top-bar(10000) și cookie(99999) */
+    z-index: 2147483647 !important;   
     background: rgba(0,0,0,.7);
     display: none;
-    align-items: flex-start;          /* IMPORTANT: aliniere sus */
+    align-items: flex-start;       
     justify-content: center;
-    padding: 120px 12px 16px;         /* offset pentru top-bar + navbar */
-    overflow: hidden;                 /* nu scrola overlay-ul, scrolăm interiorul */
+    padding: 120px 12px 16px;        
+    overflow: hidden;                
     overscroll-behavior: contain;
   }
-  /* dacă JS dă display:block inline, forțează flex ca să se centreze */
+ 
   .modal[style*="display: block"]{ display: flex !important; }
 
-  /* conținutul devine scrollabil înăuntru și nu mai intră sub header */
+
   .modal-content{
-    margin: 0;                        /* anulează margin:10% auto */
+    margin: 0;                        
     width: 94vw;
-    max-height: calc(100dvh - 140px); /* viewport - padding/top offset */
+    max-height: calc(100dvh - 140px); 
     overflow: auto;
     -webkit-overflow-scrolling: touch;
     position: relative;
   }
 
-  /* X mereu accesibil; rămâne vizibil la scroll */
+  
   .close-button{
     position: sticky;
     top: 0;
     align-self: flex-end;
-    background: #fff;                  /* fundal, să nu se piardă */
+    background: #fff;                 
     padding: 6px 10px;
     border-radius: 6px;
     z-index: 2;
   }
 }
 
-/* când modalul e deschis, blochează scroll-ul paginii din spate */
+
 body.modal-open{
   overflow: hidden;
-  height: 100dvh;   /* sigur pe mobil */
+  height: 100dvh;  
 }
 
-/* pentru ancore (#contact, #service) să nu intre sub header */
+
 section[id], div[id]{ scroll-margin-top: 120px; }
 
 
 
-/* modalul stă peste orice */
 .modal{ z-index: 2147483646 !important; }
 
-/* cât e deschis modalul, barele nu mai stau peste el */
 body.modal-open .top-bar,
 body.modal-open .navbar,
 body.modal-open .cookie-banner{
   z-index: 1 !important;
-  pointer-events: none;   /* să nu fure tap-uri */
+  pointer-events: none;   
 }
 
-/* ascunde vizual cookie bar-ul ca să nu deranjeze pe telefoane mici */
+
 body.modal-open #cookie-banner{
   opacity: 0;
   pointer-events: none;
 }
 
-/* offset corect pe mobil: X mereu vizibil, conținut scrollabil în interior */
-:root{ --header-offset: 110px; } /* fallback – JS o setează corect */
+:root{ --header-offset: 110px; } 
 @media (max-width: 1024px){
   .modal{
     align-items: flex-start !important;
     justify-content: center !important;
-    padding-top: calc(var(--header-offset) + 8px) !important; /* sub header */
+    padding-top: calc(var(--header-offset) + 8px) !important; 
   }
   .modal-content{
     margin: 0 !important;
@@ -1010,7 +1003,7 @@ body.modal-open #cookie-banner{
     -webkit-overflow-scrolling: touch;
     position: relative !important;
   }
-  /* X fix în colțul din dreapta-sus */
+ 
   .modal .close-button{
     position: fixed !important;
     top: calc(env(safe-area-inset-top, 0px) + var(--header-offset) + 8px) !important;
@@ -1024,26 +1017,24 @@ body.modal-open #cookie-banner{
   }
 }
 
-/* blochează scroll-ul paginii când e modalul deschis */
+
 body.modal-open{
   overflow: hidden !important;
   height: 100dvh !important;
 }
 
 
-/* offset corect sub top-bar + navbar (JS-ul tău deja setează variabila) */
 :root { --header-offset: 110px; }
 
-/* overlay peste tot și aliniere corectă pe mobil */
 .modal{
   z-index: 2147483646 !important;
-  align-items: flex-start !important;        /* începe de sus, nu centrat vertical */
+  align-items: flex-start !important;        
   justify-content: center !important;
-  padding: calc(var(--header-offset) + 12px) 12px 16px !important; /* SPAȚIU SUS */
+  padding: calc(var(--header-offset) + 12px) 12px 16px !important;
   background: rgba(0,0,0,.75) !important;
 }
 
-/* cutia albă mai „curată” + scrol în interior */
+
 .modal-content{
   margin: 0 !important;
   width: min(680px, 92vw) !important;
@@ -1055,7 +1046,7 @@ body.modal-open{
   padding: clamp(16px, 3vw, 22px) !important;
 }
 
-/* X mereu vizibil, lipit de colțul din dreapta-sus */
+
 .modal .close-button{
   position: fixed !important;
   top: calc(env(safe-area-inset-top, 0px) + var(--header-offset) + 8px) !important;
@@ -1066,7 +1057,7 @@ body.modal-open{
   box-shadow: 0 2px 10px rgba(0,0,0,.25);
 }
 
-/* cât timp e deschis modalul, barele nu acoperă nimic */
+
 body.modal-open .top-bar,
 body.modal-open .navbar,
 body.modal-open .cookie-banner{
@@ -1074,7 +1065,7 @@ body.modal-open .cookie-banner{
   pointer-events: none;
 }
 
-/* mic extra spațiu jos ca să nu se „lipească” de marginea ecranului */
+
 @supports (height: 100dvh){
   .modal-content{ max-height: calc(100dvh - (var(--header-offset) + 28px)) !important; }
 }
