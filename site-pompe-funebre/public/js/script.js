@@ -204,3 +204,20 @@
   window.addEventListener('resize', applyHeaderOffset);
   window.addEventListener('orientationchange', applyHeaderOffset);
 })();
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  const menuToggle = document.querySelector(".menu-toggle");
+  const navMenu = document.querySelector(".navbar nav ul");
+
+  menuToggle.addEventListener("click", () => {
+    navMenu.classList.toggle("active");
+  });
+
+  // Închide meniul după ce dai click pe un link
+  navMenu.querySelectorAll("a").forEach(link => {
+    link.addEventListener("click", () => {
+      navMenu.classList.remove("active");
+    });
+  });
+});
