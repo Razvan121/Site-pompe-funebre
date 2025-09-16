@@ -1092,8 +1092,19 @@ body.modal-open .cookie-banner{
   }
 
   .menu-toggle {
-    display: block; /* pe mobil apare hamburger */
-  }
+  display: none;
+  cursor: pointer;
+  font-size: 2rem;        /* mai mare */
+  color: #c19b6c;         /* auriu pe fundal negru */
+  background: #111;       /* mic fundal ca să se vadă clar */
+  padding: 6px 12px;
+  border-radius: 6px;
+}
+
+.menu-toggle:hover {
+  background: #c19b6c;
+  color: #111;
+}
 
   .navbar nav ul {
     display: none;              /* ascuns default */
