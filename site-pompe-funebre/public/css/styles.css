@@ -1077,55 +1077,50 @@ body.modal-open .cookie-banner{
 @supports (height: 100dvh){
   .modal-content{ max-height: calc(100dvh - (var(--header-offset) + 28px)) !important; }
 }
+/* ===== NAVBAR RESPONSIVE ===== */
+.menu-toggle {
+  display: none;
+  cursor: pointer;
+  font-size: 1.8rem;
+  color: #c19b6c;
+}
+
 @media (max-width: 768px) {
   .navbar {
     flex-wrap: wrap;
-    padding: 12px 20px;
+    justify-content: space-between;
   }
 
-  /* ascundem meniul inițial */
+  .menu-toggle {
+    display: block; /* pe mobil apare hamburger */
+  }
+
   .navbar nav ul {
-    display: none;
+    display: none;              /* ascuns default */
     flex-direction: column;
-    width: 100%;
     background: #111;
+    width: 100%;
     position: absolute;
-    top: 100%;
-    left: 0;
-    padding: 12px 0;
+    top: 100%; left: 0;
     z-index: 10000;
   }
 
   .navbar nav ul li {
     text-align: center;
-    margin: 10px 0;
+    padding: 12px 0;
   }
 
   .navbar nav ul li a {
-    font-size: 1.1rem;
     display: block;
     color: #c19b6c;
-    padding: 8px;
+    font-size: 1.1rem;
   }
 
   .navbar nav ul.active {
-    display: flex;
-  }
-
-  /* buton hamburger */
-  .menu-toggle {
-    display: block;
-    cursor: pointer;
-    font-size: 1.6rem;
-    color: #c19b6c;
-    margin-left: auto;
+    display: flex;   /* apare când dai click pe hamburger */
   }
 }
 
-/* pe desktop, ascundem hamburgerul */
-.menu-toggle {
-  display: none;
-}
 
 
 
