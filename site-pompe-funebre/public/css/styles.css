@@ -214,7 +214,7 @@ body > *:not(.top-bar):not(.navbar) {
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
-  background: url('strada.jpg') no-repeat center center;
+  background: url('/images/strada.jpg') no-repeat center center;
   background-size: cover;
   position: relative;
   color: white;
@@ -1063,6 +1063,14 @@ body.modal-open .navbar,
 body.modal-open .cookie-banner{
   z-index: 1 !important;
   pointer-events: none;
+}
+
+
+.modal .close-button {
+  position: fixed !important;
+  top: calc(var(--header-offset) + 10px) !important;
+  right: 10px !important;
+  z-index: 999999;
 }
 
 
