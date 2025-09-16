@@ -1079,24 +1079,4 @@ body.modal-open .cookie-banner{
 }
 
 
-@media (max-width: 768px) {
-  .navbar nav ul {
-    display: none;
-    flex-direction: column;
-    position: absolute;
-    top: 100%;
-    right: 0;
-    background: #111;
-    width: 240px;
-    max-height: 70vh;             /* să nu depășească ecranul */
-    overflow-y: auto;             /* dă scroll dacă sunt multe linkuri */
-    padding: 15px;
-    border-radius: 0 0 8px 8px;
-    z-index: 99999;               
-  }
-
-  .navbar nav ul.active {
-    display: flex;
-  }
-}
 
