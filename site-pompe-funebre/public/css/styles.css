@@ -1078,36 +1078,37 @@ body.modal-open .cookie-banner{
   .modal-content{ max-height: calc(100dvh - (var(--header-offset) + 28px)) !important; }
 }
 /* ===== NAVBAR RESPONSIVE ===== */
-.menu-toggle {
+/* Desktop: ascuns */
+.menu-toggle{
   display: none;
   cursor: pointer;
   font-size: 1.8rem;
-  color: #c19b6c;
+  color: #fff;
 }
 
-@media (max-width: 768px) {
-  .navbar {
+/* Mobil */
+@media (max-width: 768px){
+  .navbar{
     flex-wrap: wrap;
     justify-content: space-between;
   }
 
-  .menu-toggle {
-  display: none;
-  cursor: pointer;
-  font-size: 2rem;        /* mai mare */
-  color: #c19b6c;         /* auriu pe fundal negru */
-  background: #111;       /* mic fundal ca să se vadă clar */
-  padding: 6px 12px;
-  border-radius: 6px;
-}
+  /* AICI trebuia să fie vizibil, nu display:none */
+  .menu-toggle{
+    display: inline-flex;           /* ← vizibil pe mobil */
+    align-items: center;
+    justify-content: center;
+    color: #111;
+    background: #c19b6c;
+    padding: 6px 12px;
+    border-radius: 6px;
+    margin-left: auto;
+    z-index: 10001;                 /* peste meniu */
+  }
+  .menu-toggle:hover{ background:#a7824a; color:#fff; }
 
-.menu-toggle:hover {
-  background: #c19b6c;
-  color: #111;
-}
-
-  .navbar nav ul {
-    display: none;              /* ascuns default */
+  .navbar nav ul{
+    display: none;                  /* ascuns implicit */
     flex-direction: column;
     background: #111;
     width: 100%;
@@ -1115,22 +1116,25 @@ body.modal-open .cookie-banner{
     top: 100%; left: 0;
     z-index: 10000;
   }
+  .navbar nav ul.active{ display: flex; }
 
-  .navbar nav ul li {
+  .navbar nav ul li{
     text-align: center;
     padding: 12px 0;
   }
-
-  .navbar nav ul li a {
+  .navbar nav ul li a{
     display: block;
     color: #c19b6c;
     font-size: 1.1rem;
   }
-
-  .navbar nav ul.active {
-    display: flex;   /* apare când dai click pe hamburger */
-  }
 }
+
+/* util pentru screen readers */
+.sr-only{
+  position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden;
+  clip:rect(0,0,0,0); white-space:nowrap; border:0;
+}
+
 
 
 
